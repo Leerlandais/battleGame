@@ -21,7 +21,7 @@ class UserManager {
 
 // VERIFY IF USER ALREADY EXISTS
     public function testUserName($login) : bool {
-        $sql = $this->db->prepare("SELECT * FROM eco_object_users WHERE object_user_login = :login");
+        $sql = $this->db->prepare("SELECT * FROM battle_game_users WHERE battle_user_login = :login");
         $sql->bindValue(':login', $login);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -37,11 +37,11 @@ class UserManager {
         $name     = $this->standardClean($name);
         $email    = $this->emailClean($email);
 
-        $stmt = $this->db->prepare("INSERT INTO `eco_object_users`
-                                                    (`object_user_login`,
-                                                     `object_user_pass`,
-                                                     `object_user_name`,
-                                                     `object_user_email`) 
+        $stmt = $this->db->prepare("INSERT INTO `battle_game_users`
+                                                    (`battle_user_login`,
+                                                     `battle_user_pass`,
+                                                     `battle_user_name`,
+                                                     `battle_user_email`) 
                                         VALUES (?,?,?,?)");
         $stmt->execute([$login,$password,$name,$email]);
         if ($stmt->rowCount() > 0) return true;
@@ -53,14 +53,14 @@ class UserManager {
     public function login(string $login, string $password) : bool  {
         $login = $this->standardClean($login);
         // $password = password_hash($password, PASSWORD_DEFAULT); // I ALWAYS FORGET THAT IT IS NOT NECESSARY TO PRE-HASH THE PASSWORD
-        $stmt = $this->db->prepare("SELECT * FROM `eco_object_users` WHERE `object_user_login` = :login");
+        $stmt = $this->db->prepare("SELECT * FROM `battle_game_users` WHERE `battle_user_login` = :login");
         $stmt->execute([':login' => $login]);
         if ($stmt->rowCount() > 0) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             // the password is hashed for testing as part of password_verify()
-            if (password_verify($password, $user['object_user_pass'])) {
+            if (password_verify($password, $user['battle_user_pass'])) {
                 $_SESSION = $user;
-                unset($_SESSION['object_user_pass']);
+                unset($_SESSION['battle_user_pass']);
                 $_SESSION["id"] = session_id();
                 return true;
             }
