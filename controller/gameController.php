@@ -1,8 +1,6 @@
 <?php
 
 
-echo "and we're in";
-
 use model\Manager\UserManager;
 use model\Mapping\UserMapping;
 
@@ -13,5 +11,5 @@ if (isset($_GET["logout"])) {
     $userManager->logout();
 }
 
-
+$title = "Welcome to the Game";
 include PROJECT_DIRECTORY."/view/public/public.game.view.php";
