@@ -1,5 +1,5 @@
 <?php
-var_dump($_SESSION);
+
 ?>
 
 <!doctype html>
@@ -13,7 +13,7 @@ var_dump($_SESSION);
     <title><?=$title?></title>
 </head>
 <body>
-<div class="container-fluid w-screen h-screen bg-blue-400">
+<div class="container-fluid w-screen h-screen bg-blue-400 flex flex-col place-items-center">
     <div class="py-12">
         <?php if(isset($errorMessage)) {
         ?>
@@ -22,7 +22,10 @@ var_dump($_SESSION);
         }
         ?>
     </div>
-<div class="container-fluid flex place-content-center">
+<div class="container-fluid flex place-content-center flex flex-col place-items-center">
+    <?php
+    if(!isset($_GET["create"])) {
+    ?>
 <form action="./" method="POST">
     <div class="bg-[#F9FAFB] h-auto w-50 flex items-center">
         <div class="h-max mx-auto flex flex-col items-center">
@@ -43,7 +46,11 @@ var_dump($_SESSION);
         </div>
     </div>
 </form>
-
+    <a href="?create"><button class="bg-[#4F46E5] w-auto p-2 rounded-md text-white font-bold cursor-pointer hover:bg-[#181196]">Create User</button></a>
+    <?php
+    }
+    if (isset($_GET["create"])) {
+    ?>
 <form action="./" method="POST">
     <div class="bg-[#F9FAFB] h-auto w-50 flex items-center">
         <div class="h-max mx-auto flex flex-col items-center">
@@ -76,6 +83,9 @@ var_dump($_SESSION);
         </div>
     </div>
 </form>
+    <?php
+    }
+    ?>
 
 </div>
 <a href="?logout"><button class="bg-[#4F46E5] w-auto p-2 rounded-md text-white font-bold cursor-pointer hover:bg-[#181196]">Logout</button></a>

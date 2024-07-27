@@ -5,6 +5,7 @@ if (isset($_SESSION["errorMessage"])) {
     $errorMessage = $_SESSION["errorMessage"];
     unset($_SESSION["errorMessage"]);
 }
+var_dump($_SESSION);
 
 use model\MyPDO; // then set up a DB connection
 

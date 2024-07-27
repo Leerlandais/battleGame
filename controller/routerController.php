@@ -14,5 +14,13 @@ var_dump($route);
  * case : etc
  */
 
-require_once PROJECT_DIRECTORY.'/controller/publicController.php';
+if(!isset($_SESSION["id"]) || $_SESSION["id"] != session_id()){
+    require_once PROJECT_DIRECTORY.'/controller/publicController.php';
+    die();
+}else if($_SESSION["battle_user_permission"] < 1) {
+    die("BANNED");
+}else {
+    require_once PROJECT_DIRECTORY.'/controller/gameController.php';
+    die();
+}
 

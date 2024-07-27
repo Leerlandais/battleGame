@@ -11,4 +11,10 @@ class CharacterManager
 {
 use TraitLaundryRoom, TraitTestString, TraitTestInt;
 
+    private MyPDO $db;
+
+    public function __construct(OurPDO $pdo)
+    {
+        $this->db = $pdo;
+    }
 }
